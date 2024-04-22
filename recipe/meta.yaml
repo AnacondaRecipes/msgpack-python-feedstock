@@ -10,7 +10,7 @@ source:
 
 build:
   number: 0
-  script: {{ PYTHON }} -m pip install . -vv
+  script: {{ PYTHON }} -m pip install --no-deps and --no-build-isolation . -vv
 
 requirements:
   build:
@@ -26,6 +26,8 @@ requirements:
     - python
 
 test:
+  commands:
+    - pip check
   imports:
     - msgpack
 
@@ -38,7 +40,11 @@ about:
   dev_url: https://github.com/msgpack/msgpack-python
 
 extra:
+  anaconda-services:
+    ref: https://anaconda.zendesk.com/agent/tickets/48416
+    reason: Client request
   recipe-maintainers:
+    - ianaobi
     - jakirkham
     - ocefpaf
     - carlodri
