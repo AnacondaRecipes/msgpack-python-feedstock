@@ -40,7 +40,11 @@ about:
   dev_url: https://github.com/msgpack/msgpack-python
 
 extra:
+  anaconda-services:
+    ref: https://anaconda.zendesk.com/agent/tickets/48416
+    reason: Client request
   recipe-maintainers:
+    - ianaobi
     - jakirkham
     - ocefpaf
     - carlodri
