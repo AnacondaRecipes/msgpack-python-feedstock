@@ -26,7 +26,7 @@ requirements:
     - cython >=3.0.11,<3.1.0
     - setuptools
     - wheel
-    - tapi  # [osx-64]
+    - tapi  # [osx and x86_64]
   run:
     - python
 
