@@ -9,6 +9,7 @@ source:
   sha256: 572efc93db7a4d27e404501975ca6d2d9775705c2d922390d878fcf768d92c87
 
 build:
+  skip: True  # [py<38 or py>312]
   number: 0
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   ignore_run_exports_from:
@@ -17,7 +18,7 @@ build:
 requirements:
   build:
     - python
-    - cython
+    - {{ compiler("c") }}
     - {{ compiler("cxx") }}
   host:
     - python
@@ -31,14 +32,25 @@ requirements:
 test:
   imports:
     - msgpack
+  requires:
+    - pip
+  commands:
+    - pip check
 
 about:
-  home: http://msgpack.org/
+  home: https://msgpack.org/
   license: Apache-2.0
   license_file: COPYING
   summary: MessagePack (de)serializer
   license_family: Apache
   dev_url: https://github.com/msgpack/msgpack-python
+  doc_url: https://github.com/msgpack/msgpack/blob/master/spec.md
+  description: |
+    MessagePack is an efficient binary serialization format. 
+    It lets you exchange data among multiple languages like JSON.
+    But it's faster and smaller. Small integers are encoded into a 
+    single byte, and typical short strings require only one extra
+    byte in addition to the strings themselves.
 
 extra:
   recipe-maintainers:
