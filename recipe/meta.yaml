@@ -13,8 +13,8 @@ build:
   skip: True  # [py<38]
   number: 0
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  ignore_run_exports_from:
-    - {{ compiler('cxx') }}
+  ignore_run_exports:
+    - libcxx
 
 requirements:
   build:
@@ -26,6 +26,7 @@ requirements:
     - pip
     - cython
     - setuptools >=75.3.0
+    - wheel
   run:
     - python
 
@@ -64,5 +65,3 @@ extra:
     - jakirkham
     - ocefpaf
     - carlodri
-  skip-lints:
-  - missing_wheel
