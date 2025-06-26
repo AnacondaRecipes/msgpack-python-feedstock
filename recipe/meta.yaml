@@ -13,8 +13,6 @@ build:
   skip: True  # [py<38]
   number: 0
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  ignore_run_exports:
-    - libcxx
 
 requirements:
   build:
