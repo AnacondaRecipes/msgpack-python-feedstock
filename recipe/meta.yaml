@@ -1,30 +1,29 @@
 {% set name = "msgpack-python" %}
-{% set version = "1.1.1" %}
+{% set version = "1.2.0" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/msgpack/msgpack-{{ version }}.tar.gz
-  sha256: 77b79ce34a2bdab2594f490c8e80dd62a02d650b91a75159a63ec413b8d104cd
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name.split('-')[0] }}/{{ name.split('-')[0] }}-{{ version }}.tar.gz
+  sha256: 8e17af38197bf58e7e819041678f6178f4491493f5b8c8580414f40f7c2c3c41
 
 build:
-  skip: True  # [py<38]
   number: 0
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  skip: true  # [py<310]
 
 requirements:
   build:
-    - python
+    - {{ stdlib("c") }}
     - {{ compiler("c") }}
     - {{ compiler("cxx") }}
   host:
-    - python
     - pip
+    - python
     - cython
-    - setuptools >=75.3.0
-    - wheel
+    - setuptools 78.1.1
   run:
     - python
 
@@ -35,13 +34,13 @@ test:
     - msgpack
     - msgpack.exceptions
     - msgpack.ext
-  requires:
-    - pip
-    - pytest
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('msgpack')=='{{ version }}')"
     - pytest -v test
+  requires:
+    - pip
+    - pytest >=9.0.3
 
 about:
   home: https://msgpack.org
